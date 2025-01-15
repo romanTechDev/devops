@@ -3,4 +3,3 @@
   hosts: gateway-dsp-prod
   roles:
     - nginx
-  
