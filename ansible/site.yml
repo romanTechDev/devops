@@ -1,0 +1,6 @@
+---
+- name: Site
+  hosts: gateway-dsp-prod
+  roles:
+    - nginx
+  

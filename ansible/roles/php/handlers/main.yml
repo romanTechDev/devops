@@ -1,0 +1,10 @@
+---
+- name: Перезапуск Nginx
+  service:
+    name: nginx
+    state: restarted
+
+- name: Перезапуск PHP-FPM
+  service:
+    name: php7.4-fpm
+    state: restarted
