@@ -4,7 +4,7 @@
   ansible.builtin.apt:
     name: nginx
     state: present
-    update_cache: true 
+    update_cache: true
 
 # - name: Копирование конфигурационного файла
 #   template:
