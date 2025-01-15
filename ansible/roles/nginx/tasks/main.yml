@@ -1,0 +1,18 @@
+---
+- name: Установка Nginx
+  ansible.builtin.apt:
+    name: nginx
+    state: present
+    update_cache: true
+
+# - name: Копирование конфигурационного файла
+#   template:
+#     src: nginx.conf.j2
+#     dest: /etc/nginx/sites-available/default
+#   notify: Перезапуск Nginx
+
+# - name: Создание символической ссылки в sites-enabled
+#   command: ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+#   args:
+#     removes: /etc/nginx/sites-enabled/default
+#   notify: Перезапуск Nginx
