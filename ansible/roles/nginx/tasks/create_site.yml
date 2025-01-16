@@ -1,0 +1,31 @@
+---
+- name: Создание нового ресурса Nginx
+  block:
+      - name: "Создание директории /var/www/{{ domain }}"
+        ansible.builtin.file:
+            path: "/var/www/{{ domain }}/html"
+            state: directory
+            mode: '0755'
+
+      - name: "Создание индекс страницы для {{ domain }}"
+        become: true
+        ansible.builtin.template:
+            src: ansible_index.html.j2
+            dest: "/var/www/{{ domain }}/html/index.html"
+            mode: '0644'
+
+      - name: Копирование конфигурационного файла Nginx
+        become: true
+        ansible.builtin.template:
+            src: site_config.conf.j2
+            dest: "/etc/nginx/sites-available/{{ domain }}"
+            mode: '0644'
+
+      - name: Создание символической ссылки
+        ansible.builtin.file:
+            src: "/etc/nginx/sites-available/{{ domain }}"
+            dest: "/etc/nginx/sites-enabled/{{ domain }}"
+            state: link
+        notify:
+            - Проверка синтаксиса Nginx
+            - Перезапуск Nginx

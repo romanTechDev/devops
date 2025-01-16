@@ -3,3 +3,19 @@
   ansible.builtin.service:
     name: nginx
     state: restarted
+
+
+- name: Проверка синтаксиса Nginx
+  become: true
+  block:
+    - name: Shell команда nginx -t
+      ansible.builtin.shell:
+        cmd: |
+          set -o pipefail
+          nginx -t
+      changed_when: false
+      register: nginx_syntax_output
+
+    - name: Вывести результат выполнения контейнера
+      ansible.builtin.debug:
+        msg: "{{ nginx_syntax_output }}"
