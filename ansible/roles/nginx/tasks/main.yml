@@ -1,10 +1,9 @@
 ---
-- name: Установка Nginx
-  become: true
-  ansible.builtin.apt:
-    name: nginx
-    state: present
-    update_cache: true
+- name: Nginx
+  ansible.builtin.import_tasks:
+    file: install.yml
+# - import_tasks: start.yml
+# - import_tasks: config.yml
 
 # - name: Копирование конфигурационного файла
 #   template:
