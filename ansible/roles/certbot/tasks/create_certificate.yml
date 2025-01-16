@@ -1,18 +1,20 @@
 ---
 - name: Создание SSL сертификата
-  tags:
-      - create_certificate
   block:
-      - name: Создание сертификата
+      - name: Проверка создания сертификата
         become: true
         ansible.builtin.shell:
             cmd: |
               set -o pipefail
-              sudo certbot certonly --nginx -d "*.{{ domain }}" -d "{{ domain }}"
+              {% if certbot_wildcart_domain %}
+                sudo certbot certonly --dry-run --nginx -d "*.{{ domain }}" -d "{{ domain }}"
+              {% else %}
+                sudo certbot certonly --dry-run --nginx -d "{{ domain }}" -d "www.{{ domain }}"
+              {% endif %}
             executable: /bin/bash
         changed_when: false
-        register: certbot_output
+        register: certbot_test_output
 
       - name: Вывести результат выполнения контейнера
         ansible.builtin.debug:
-            msg: "{{ certbot_output }}"
+            msg: "{{ certbot_test_output }}"
