@@ -1,0 +1,6 @@
+---
+- name: Certbot
+  ansible.builtin.import_tasks:
+    file:
+      - install.yml
+      - create_certificate.yml

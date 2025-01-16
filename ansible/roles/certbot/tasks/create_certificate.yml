@@ -1,0 +1,18 @@
+---
+- name: Создание SSL сертификата
+  tags:
+      - create_certificate
+  block:
+      - name: Создание сертификата
+        become: true
+        ansible.builtin.shell:
+            cmd: |
+              set -o pipefail
+              sudo certbot certonly --nginx -d "*.{{ domain }}" -d "{{ domain }}"
+            executable: /bin/bash
+        changed_when: false
+        register: certbot_output
+
+      - name: Вывести результат выполнения контейнера
+        ansible.builtin.debug:
+            msg: "{{ certbot_output }}"
