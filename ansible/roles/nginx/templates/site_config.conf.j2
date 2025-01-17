@@ -1,30 +1,9 @@
 server {
     listen 80;
-    server_name {{ domain }} www.{{ domain }};
-
-    root /var/www/{{ domain }}/html;
-    index index.html index.html;
+    server_name {{ domain }};  # Замените на ваше доменное имя или IP адрес
 
     location / {
-        try_files $uri $uri/ =404;
+        root /var/www/html;  # Путь к корневой директории вашего сайта
+        index index.html index.htm;
     }
 }
-
-#server {
-#    listen 80;
-#    server_name tolk.show www.tolk.show;
-#
-#    root /var/www/tolk.show/html;
-#    index index.html index.html;
-#
-#    location / {
-#        try_files $uri $uri/ =404;
-#    }
-#}
-
-#server {
-#       listen 80;
-#       server_name tolk.show;
-#       return 301 https://tolk.show$request_uri;
-#}
-

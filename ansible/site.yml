@@ -1,8 +1,8 @@
 ---
 - name: Site
-  hosts: backend_services-seller-dsp-prod #gateway-dsp-prod
+  hosts: gateway
   tasks:
     - name: Запуск роли
       ansible.builtin.include_role:
-        name: docker
-        tasks_from: install.yml
+        name: certbot
+        tasks_from: create_certificate.yml

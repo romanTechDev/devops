@@ -1,15 +1,48 @@
 ---
 - name: Создание SSL сертификата
+  become: true
+  when: certbot_domain_controller = "reg.ru"
   block:
+      - name: Установка python3.12-venv
+        ansible.builtin.apt:
+            state: present
+            name:
+                - python3.12-venv
+            update_cache: true
+
+      - name: Создание виртуального окружения python
+        ansible.builtin.shell:
+            cmd: |
+              set -o pipefail
+              python3 -m venv /home/python_home
+            executable: /bin/bash
+        changed_when: false
+
+      - name: Установка pip certbot-regru
+        ansible.builtin.shell:
+            cmd: |
+              set -o pipefail
+              /home/python_home/pip install certbot-regru
+            executable: /bin/bash
+        changed_when: false
+
+
+      # - name: Set permissions on regru.ini
+      #   ansible.builtin.file:
+      #     path: /etc/letsencrypt/regru.ini
+      #     mode: '0600'
+
+      # certbot certonly --dry-run -a certbot-regru:dns --installer nginx -d "*.{{ domain }}" -d "{{ domain }}" --pre-hook "service nginx stop" --post-hook "service nginx start"
+      # certbot certonly --dry-run -a certbot-regru:dns --installer nginx -d "{{ domain }}" -d "www.{{ domain }}" --pre-hook "service nginx stop" --post-hook "service nginx start"
+      
       - name: "Проверка создания сертификата для домена {{ domain }}"
-        become: true
         ansible.builtin.shell:
             cmd: |
               set -o pipefail
               {% if certbot_wildcart_domain %}
-                certbot certonly --dry-run --nginx -d "*.{{ domain }}" -d "{{ domain }}"
+                /home/python_home/bin/certbot certonly --dry-run -d "*.{{ domain }}" -d "{{ domain }}"
               {% else %}
-                certbot certonly --dry-run --nginx -d "{{ domain }}" -d "www.{{ domain }}"
+                /home/python_home/bin/certbot certonly --dry-run -d "{{ domain }}"
               {% endif %}
             executable: /bin/bash
         changed_when: certbot_test_output.stderr

@@ -1,0 +1,7 @@
+services:
+  php-fpm:
+    build: .
+    ports:
+      - "6020:9000"  # Пробрасываем порт 9000 на 6020
+    volumes:
+      - {{ home_directory }}/www:/var/www/html

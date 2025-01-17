@@ -1,0 +1,13 @@
+# Используем официальный образ PHP с поддержкой FPM
+FROM php:8.1.31-alpine3.20
+
+# Устанавливаем необходимые расширения (например, для работы с базами данных)
+#RUN apk update && apk add docker-php-ext-install pdo pdo_mysql
+
+# Копируем файл php.ini для настройки (если необходимо)
+COPY php.ini /usr/local/etc/php/
+
+EXPOSE 6020
+
+# Указываем, что мы хотим слушать на порту 6020
+CMD ["php-fpm"]

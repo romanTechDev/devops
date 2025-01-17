@@ -1,7 +1,5 @@
 ---
 - name: Установка Docker
-  tags:
-      - install
   block:
       - name: Установить необходимые зависимости
         become: true

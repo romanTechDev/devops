@@ -1,1 +1,2 @@
 certbot_wildcart_domain: true
+certbot_domain_controller: "reg.ru"

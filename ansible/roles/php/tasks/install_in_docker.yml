@@ -1,0 +1,48 @@
+---
+- name: Установка php-fpm в Docker
+  become: true
+  vars:
+      home_directory: '/home/php-fpm-docker'
+  block:
+      - name: Create a user 'php-fpm-docker' with a home directory
+        ansible.builtin.user:
+            name: php-fpm-docker
+            groups: docker
+            create_home: true
+
+      - name: Копирование конфигурационного файла php.ini
+        ansible.builtin.template:
+            src: php.ini.j2
+            dest: "{{ home_directory }}/php.ini"
+            mode: '0644'
+
+      - name: Копирование Dockerfile файла php-fpm-Dockerfile
+        ansible.builtin.template:
+            src: php-fpm-Dockerfile.j2
+            dest: "{{ home_directory }}/Dockerfile"
+            mode: '0644'
+
+      - name: Копирование конфигурационного файла docker-compose.yml
+        ansible.builtin.template:
+            src: php-fpm-docker-compose.yml.j2
+            dest: "{{ home_directory }}/docker-compose.yml"
+            mode: '0644'
+
+      - name: Create www directory
+        ansible.builtin.file:
+            path: "{{ home_directory }}/www"
+            state: directory
+            mode: '0755'
+
+      - name: Create index.php file
+        ansible.builtin.copy:
+            dest: "{{ home_directory }}/www/index.php"
+            content: "<?php phpinfo(); ?>"
+            mode: '0644'
+
+      - name: Build and run docker-compose
+        community.docker.docker_compose_v2:
+            project_src: "{{ home_directory }}"  # Замените на путь до вашего проекта
+            # build: always
+            # restarted: true
+            # removed: false
