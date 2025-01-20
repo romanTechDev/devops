@@ -34,7 +34,7 @@
 
       # certbot certonly --dry-run -a certbot-regru:dns --installer nginx -d "*.{{ domain }}" -d "{{ domain }}" --pre-hook "service nginx stop" --post-hook "service nginx start"
       # certbot certonly --dry-run -a certbot-regru:dns --installer nginx -d "{{ domain }}" -d "www.{{ domain }}" --pre-hook "service nginx stop" --post-hook "service nginx start"
-      
+
       - name: "Проверка создания сертификата для домена {{ domain }}"
         ansible.builtin.shell:
             cmd: |

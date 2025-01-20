@@ -1,0 +1,23 @@
+---
+- name: Получение SSL сертификата
+  become: true
+  block:
+      - name: Копирование конфигурационного файла Nginx
+        ansible.builtin.template:
+            src: nginx_https_site.conf.j2
+            dest: "/etc/nginx/sites-available/{{ domain }}"
+            mode: '0644'
+
+      - name: Создание символической ссылки
+        ansible.builtin.file:
+            src: "/etc/nginx/sites-available/{{ domain }}"
+            dest: "/etc/nginx/sites-enabled/{{ domain }}"
+            state: link
+
+      - name: Проверить и перезапустить nginx
+        ansible.builtin.debug:
+            msg: "Проверка синтаксиса Nginx и Перезапуск Nginx"
+        changed_when: true
+        notify:
+            - Проверка синтаксиса Nginx
+            - Перезапуск Nginx

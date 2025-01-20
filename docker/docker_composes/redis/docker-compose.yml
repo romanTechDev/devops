@@ -1,0 +1,15 @@
+services:
+  redis:
+    image: redis:7.4.2
+    container_name: redis
+    ports:
+      - "6379:6379"  # Открываем порт для доступа к Redis
+    environment:
+      - REDIS_USERNAME=dsp_username
+      - REDIS_PASSWORD=dsp_password
+
+    volumes:
+      - redis_data:/data  # Хранение данных Redis в Volume
+
+volumes:
+  redis_data:  # Объявление тома для хранения данных

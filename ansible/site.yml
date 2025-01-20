@@ -4,5 +4,6 @@
   tasks:
     - name: Запуск роли
       ansible.builtin.include_role:
-        name: certbot
-        tasks_from: create_certificate.yml
+        name: nginx
+        tasks_from: create_https_site.yml
+        # handlers_from: main.yml
