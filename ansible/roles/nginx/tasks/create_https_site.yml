@@ -5,13 +5,13 @@
       - name: Копирование конфигурационного файла Nginx
         ansible.builtin.template:
             src: nginx_https_site.conf.j2
-            dest: "/etc/nginx/sites-available/{{ domain }}"
+            dest: "/etc/nginx/sites-available/{{ site }}"
             mode: '0644'
 
       - name: Создание символической ссылки
         ansible.builtin.file:
-            src: "/etc/nginx/sites-available/{{ domain }}"
-            dest: "/etc/nginx/sites-enabled/{{ domain }}"
+            src: "/etc/nginx/sites-available/{{ site }}"
+            dest: "/etc/nginx/sites-enabled/{{ site }}"
             state: link
 
       - name: Проверить и перезапустить nginx

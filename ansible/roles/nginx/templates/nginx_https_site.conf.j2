@@ -1,6 +1,6 @@
 server {
     listen 443 ssl;
-    server_name {{ domain }};
+    server_name {{ site }};
 
     ssl_certificate {{ nginx_ssl_crt_path }}{{ domain }}.crt;
     ssl_certificate_key {{ nginx_ssl_key_path }}{{ domain }}.key;
@@ -15,11 +15,4 @@ server {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
     }
-}
-
-server {
-    listen 80;
-    server_name {{ domain }};
-
-    return 301 https://$host$request_uri; # Перенаправление с HTTP на HTTPS
 }

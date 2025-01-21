@@ -1,0 +1,17 @@
+services:
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    ports:
+      - "9000:9000"   # Порт для API доступа
+      - "9001:9001"   # Порт для консоли управления
+    volumes:
+      - minio_data:/data
+    environment:
+      MINIO_ROOT_USER: minioadmin        # Имя пользователя (замените на своё)
+      MINIO_ROOT_PASSWORD: minioadmin    # Пароль (замените на своё)
+    command: server /data --console-address ":9001"
+
+volumes:
+  minio_data:
+    driver: local
