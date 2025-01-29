@@ -1,0 +1,15 @@
+---
+- name: Установка GitLab Runner
+  block:
+    - name: Установка GitLab Runner
+      become: true
+      ansible.builtin.apt:
+        name: gitlab-runner
+        state: present
+        update_cache: true
+
+    - name: Запуск GitLab Runner
+      ansible.builtin.service:
+        name: gitlab-runner
+        state: started
+        enabled: true

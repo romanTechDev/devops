@@ -1,0 +1,35 @@
+---
+- name: Подключение GitLab Runner к репозиторию в Docker
+  become: true
+  block:
+    - name: Запуск контейнера
+      docker_container:
+        name: gitlab-runner
+        image: "gitlab/gitlab-runner:{{ gitlab_runner_version }}"
+        state: started
+        restart_policy: always
+        env:
+          - DOCKER_DRIVER=overlay2
+        volumes:
+          - /var/run/docker.sock:/var/run/docker.sock
+        network_mode: "bridge"
+
+    - name: Регистрация GitLab Runner
+      ansible.builtin.shell: >
+        docker exec gitlab-runner gitlab-runner register
+        --non-interactive
+        --url "{{ gitlab_url }}"
+        --registration-token "{{ runner_token }}"
+        --name "{{ runner_name }}"
+        --executor "{{ runner_executor }}"
+        --docker-image "{{ docker_image }}"
+        --docker-privileged
+        --tag-list "docker"
+      args:
+        warn: false
+      register: gitlab_runner_registration
+      changed_when: gitlab_runner_registration.rc != 0 # <- Uses the return code to define when the task has changed.
+
+    - name: Вывод лога регистрации
+      ansible.builtin.debug:
+        var: gitlab_runner_registration.stdout

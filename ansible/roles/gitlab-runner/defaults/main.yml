@@ -1,0 +1,6 @@
+gitlab_url: "https://gitlab.example.com/"
+runner_token: "YOUR_RUNNER_TOKEN"
+runner_name: "my-docker-runner"
+runner_executor: "docker"
+docker_image: "docker:latest"
+gitlab_runner_version: "alpine3.19-bleeding"

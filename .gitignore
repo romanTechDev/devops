@@ -1,2 +1,2 @@
-ansible/roles/nginx/templates/certificate.crt
-ansible/roles/nginx/templates/certificate.key
+# ansible/roles/nginx/templates/certificate.crt
+# ansible/roles/nginx/templates/certificate.key
