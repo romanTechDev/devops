@@ -1,0 +1,12 @@
+services:
+  vmagent:
+    image: victoriametrics/vmagent:v1.110.0
+    container_name: vmagent
+    ports:
+      - "192.168.1.110:8429:8429"  # Порт для веб-интерфейса
+    command:
+      - '-promscrape.config=/etc/vmagent/prometheus.yml'
+      - '-remoteWrite.url=http://192.168.1.110:8428/api/v1/write'  # Замените на URL вашего VictoriaMetrics
+    volumes:
+      - ./prometheus.yml:/etc/vmagent/prometheus.yml  # Настройка для сбора метрик
+    restart: always

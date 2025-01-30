@@ -22,7 +22,7 @@
         --registration-token "{{ runner_token }}"
         --name "{{ runner_name }}"
         --executor "{{ runner_executor }}"
-        --docker-image "{{ docker_image }}"
+        --docker-image "{{ runner_docker_image }}"
         --docker-privileged
         --tag-list "docker"
       args:
