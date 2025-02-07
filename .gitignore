@@ -4,4 +4,4 @@
 .ssh
 .DS_Store
 ansible/inventory.ini
-selectel.init.sh
+selectel_init.sh
