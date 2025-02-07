@@ -1,3 +1,24 @@
-#SPDX-License-Identifier: MIT-0
----
-# defaults file for monitoring
+monitoring_devops_password: ""
+
+monitoring_docker_working_directory_path: "/home/devops/docker"
+# monitoring_docker_composes_path: "{{ monitoring_docker_working_directory_path }}/docker_composes"
+# monitoring_local_docker_composes_files:
+#   - docker/docker_composes/node-exporter/docker-compose.yml
+#   - docker/docker_composes/cadvisor/docker-compose.yml
+
+monitoring_grafana_version: "11.5.0"
+
+monitoring_loki_url: "http://192.168.1.110:3100"
+monitoring_loki_version: "3.3.2"
+monitoring_loki_port: "3100"
+
+monitoring_victoria_metrics_url: "http://192.168.1.110:8428"
+monitoring_victoria_metrics_version: "v1.110.0"
+monitoring_victoria_metrics_port: "8428"
+
+monitoring_node_exporter_version: "v1.8.2"
+monitoring_cadvisor_version: "v0.49.2"
+monitoring_cadvisor_port: "6000"
+monitoring_alloy_version: "v1.6.1"
+monitoring_vmagent_version: "v1.110.0"
+monitoring_vmagent_port: "8429"

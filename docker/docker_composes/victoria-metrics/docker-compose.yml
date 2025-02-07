@@ -9,6 +9,8 @@ services:
     #  -retentionPeriod=1
     #  -httpListenAddr=:8428
     #  -storageDataPath=/storage
-    
     volumes:
       - victoria-metrics-data:/storage
+
+volumes:
+  victoria-metrics-data:

@@ -1,6 +1,7 @@
 # ansible/roles/nginx/templates/certificate.crt
 # ansible/roles/nginx/templates/certificate.key
 .vscode
+.ssh
 .DS_Store
 ansible/inventory.ini
 selectel.init.sh

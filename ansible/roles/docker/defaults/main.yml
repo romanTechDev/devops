@@ -1,3 +1,4 @@
-#SPDX-License-Identifier: MIT-0
 ---
 # defaults file for docker
+docker_devops_password: ""
+docker_working_directory_path: "/home/devops/docker"

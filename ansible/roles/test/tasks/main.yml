@@ -1,0 +1,4 @@
+---
+- name: Display IP addresses
+  ansible.builtin.debug:
+    msg: "IP address: {{ ansible_default_ipv4.address }}"

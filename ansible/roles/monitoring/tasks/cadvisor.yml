@@ -1,0 +1,21 @@
+---
+- name: Cadvisor
+  become: true
+  block:
+    - name: Запуск контейнера
+      community.docker.docker_container:
+        name: cadvisor
+        image: "gcr.io/cadvisor/cadvisor:{{ monitoring_cadvisor_version }}"
+        state: started
+        restart_policy: always
+        privileged: true
+        devices:
+          - /dev/kmsg
+        volumes:
+          - /:/rootfs:ro
+          - /var/run:/var/run:ro
+          - /sys:/sys:ro
+          - /var/lib/docker/:/var/lib/docker:ro
+          - /dev/disk/:/dev/disk:ro
+        published_ports:
+          - "6000:8080"

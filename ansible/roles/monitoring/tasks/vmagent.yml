@@ -1,0 +1,39 @@
+---
+- name: Vmagent
+  become: true
+  block:
+    - name: Create a directory for vmagent
+      ansible.builtin.file:
+        path: "{{ monitoring_docker_working_directory_path }}/vmagent"
+        owner: devops
+        group: devops
+        state: directory
+        mode: '0755'
+
+    - name: Create a directory configs for vmagent
+      ansible.builtin.file:
+        path: "{{ monitoring_docker_working_directory_path }}/vmagent/configs"
+        owner: devops
+        group: devops
+        state: directory
+        mode: '0755'
+
+    - name: Копирование конфигурационного файла vmagent
+      ansible.builtin.template:
+        src: "prometheus.yml.j2"
+        dest: "{{ monitoring_docker_working_directory_path }}/vmagent/configs/prometheus.yml"
+        mode: '0644'
+
+    - name: Run vmagent container
+      community.docker.docker_container:
+        name: vmagent
+        image: "victoriametrics/vmagent:{{ monitoring_vmagent_version }}"
+        state: started
+        restart_policy: always
+        published_ports:
+          - "{{ ansible_default_ipv4.address }}:{{ monitoring_vmagent_port }}:8429"
+        command:
+          - '-promscrape.config=/etc/vmagent/prometheus.yml'
+          - "'-remoteWrite.url=http:/{{ monitoring_victoria_metrics_url }}/api/v1/write'"
+        volumes:
+          - "{{ monitoring_docker_working_directory_path }}/vmagent/configs/prometheus.yml:/etc/vmagent/prometheus.yml"

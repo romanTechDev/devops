@@ -1,0 +1,15 @@
+---
+- name: Node-exporter
+  become: true
+  block:
+    - name: Запуск контейнера
+      community.docker.docker_container:
+        name: node_exporter
+        image: "prom/node-exporter:{{ monitoring_node_exporter_version }}"
+        command: ['--path.rootfs=/host']
+        network_mode: host
+        pid_mode: host
+        restart_policy: unless-stopped
+        volumes:
+          - /:/host:ro,rslave
+        state: present

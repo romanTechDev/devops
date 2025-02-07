@@ -1,0 +1,30 @@
+---
+- name: Alloy
+  become: true
+  block:
+    - name: Create a directory for Alloy config
+      ansible.builtin.file:
+        path: "{{ monitoring_docker_working_directory_path }}/alloy"
+        owner: devops
+        group: devops
+        state: directory
+        mode: '0755'
+
+    - name: Копирование конфигурационного файла alloy
+      ansible.builtin.template:
+        src: "config.alloy.j2"
+        dest: "{{ monitoring_docker_working_directory_path }}/alloy/config.alloy"
+        mode: '0644'
+
+    - name: Create the Alloy container
+      community.docker.docker_container:
+        name: alloy
+        image: "grafana/alloy:{{ monitoring_alloy_version }}"
+        state: present
+        restart_policy: unless-stopped
+        published_ports:
+          - "12345:12345"
+        volumes:
+          - "{{ monitoring_docker_working_directory_path }}/alloy/config.alloy:/etc/alloy/config.alloy"
+          - /var/run/docker.sock:/var/run/docker.sock
+        command: "run --server.http.listen-addr=0.0.0.0:12345 --storage.path=/var/lib/alloy/data /etc/alloy/config.alloy"

@@ -1,3 +1,11 @@
-#SPDX-License-Identifier: MIT-0
 ---
-# tasks file for monitoring
+- name: Создание пользователя devops
+  become: true
+  block:
+    - name: Создание пользователя
+      ansible.builtin.user:
+        name: devops
+        groups: docker
+        password: "{{ monitoring_devops_password }}"
+        create_home: true
+        shell: /bin/bash

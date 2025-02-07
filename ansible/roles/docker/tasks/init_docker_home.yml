@@ -1,0 +1,19 @@
+---
+- name: Инициализация домашней директории docker пользователя devops
+  become: true
+  block:
+    - name: Создание пользователя
+      ansible.builtin.user:
+        name: devops
+        groups: docker
+        password: "{{ docker_devops_password }}"
+        create_home: true
+        shell: /bin/bash
+
+    - name: "Создание директории {{ docker_working_directory_path }}"
+      ansible.builtin.file:
+        path: "{{ docker_working_directory_path }}"
+        owner: devops
+        group: devops
+        state: directory
+        mode: '0755'

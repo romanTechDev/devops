@@ -4,4 +4,12 @@ services:
     container_name: grafana
     ports:
       - "3000:3000"
+    volumes:
+      - grafana-storage:/var/lib/grafana  # Volume for persistent storage
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=fefdwafe
     restart: unless-stopped
+
+volumes:
+  grafana-storage:
+    driver: local  # Use local driver for volume

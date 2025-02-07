@@ -1,0 +1,24 @@
+---
+- name: Victoria Metrics
+  become: true
+  block:
+    - name: Create volume for Victoria Metrics
+      docker_volume:
+        name: victoria-metrics-data
+        state: present
+
+    - name: Run Victoria Metrics container
+      docker_container:
+        name: victoria-metrics
+        image: "victoriametrics/victoria-metrics:{{ monitoring_victoria_metrics_version }}"
+        ports:
+          - "{{ monitoring_victoria_metrics_port }}:8428"
+        volumes:
+          - victoria-metrics-data:/storage
+        restart_policy: always
+        # Uncomment the command section if needed
+        # command: >
+        #   /victoria-metrics
+        #   -retentionPeriod=1
+        #   -httpListenAddr=:8428
+        #   -storageDataPath=/storage

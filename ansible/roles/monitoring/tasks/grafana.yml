@@ -1,0 +1,12 @@
+---
+- name: Deploy Grafana using Docker
+  become: true
+  block:
+    - name: Ensure Grafana container is present
+      community.docker.docker_container:
+        name: grafana
+        image: "grafana/grafana:{{ monitoring_grafana_version }}"
+        state: started
+        restart_policy: unless-stopped
+        published_ports:
+          - "3000:3000"

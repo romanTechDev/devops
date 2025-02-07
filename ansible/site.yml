@@ -1,9 +1,14 @@
 ---
 - name: Site
-  hosts: customer-dsp-prod
+  hosts: ["new_site_mm-prod"]
+  gather_facts: true
   tasks:
     - name: Запуск роли
       ansible.builtin.include_role:
         name: docker
         tasks_from: install.yml
-        # handlers_from: main.yml
+
+    - name: Запуск роли
+      ansible.builtin.include_role:
+        name: docker
+        tasks_from: init_docker_home.yml
