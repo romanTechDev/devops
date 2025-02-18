@@ -1,0 +1,40 @@
+{
+    "id": 1,
+    "uid": "cebfwz15upczkf",
+    "orgId": 1,
+    "name": "Victoria_Metrics-TEST",
+    "type": "prometheus",
+    "typeLogoUrl": "public/app/plugins/datasource/prometheus/img/prometheus_logo.svg",
+    "access": "proxy",
+    "url": "http://192.168.1.50:8429",
+    "user": "",
+    "database": "",
+    "basicAuth": false,
+    "basicAuthUser": "",
+    "withCredentials": false,
+    "isDefault": true,
+    "jsonData": {
+        "httpMethod": "POST",
+        "prometheusType": "Prometheus",
+        "prometheusVersion": "2.50.1",
+        "timeInterval": "5s",
+        "tlsSkipVerify": true
+    },
+    "secureJsonFields": {},
+    "version": 7,
+    "readOnly": false,
+    "accessControl": {
+        "alert.instances.external:read": true,
+        "alert.instances.external:write": true,
+        "alert.notifications.external:read": true,
+        "alert.notifications.external:write": true,
+        "alert.rules.external:read": true,
+        "alert.rules.external:write": true,
+        "datasources.id:read": true,
+        "datasources:delete": true,
+        "datasources:query": true,
+        "datasources:read": true,
+        "datasources:write": true
+    },
+    "apiVersion": ""
+}

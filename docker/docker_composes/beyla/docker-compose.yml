@@ -1,0 +1,8 @@
+services:
+  beyla:
+    image: grafana/beyla:2.0.3
+    environment:
+      - BEYLA_OPEN_PORT=8443
+      - BEYLA_TRACE_PRINTER=text
+    pid: "container:goblog"
+    privileged: true

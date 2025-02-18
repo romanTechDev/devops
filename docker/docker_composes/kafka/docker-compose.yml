@@ -1,0 +1,37 @@
+services:
+  kafka1:
+    image: confluentinc/cp-kafka:latest
+    container_name: kafka1
+    environment:
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+      # Уникальный идентификатор узла
+      KAFKA_NODE_ID: 1
+
+      # Уникальный идентификатор кластера (генерируется один раз)
+      CLUSTER_ID: 0Ea8Ov0mSwS-YUjgXjGcHA
+
+      # Роли узла (брокер и контроллер)
+      KAFKA_PROCESS_ROLES: broker,controller
+
+      # Настройка слушателей
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://192.168.1.110:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT
+
+
+      # Настройка контроллеров
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@192.168.1.110:9093
+
+       # Разрешаем использование PLAINTEXT (без шифрования)
+       #- ALLOW_PLAINTEXT_LISTENER=yes
+    ports:
+      - "9092:9092"
+      - "9093:9093"
+    volumes:
+      - kafka1-data:/var/lib/kafka/data
+
+volumes:
+  kafka1-data:
+    driver: local

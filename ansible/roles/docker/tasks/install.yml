@@ -1,8 +1,8 @@
 ---
 - name: Установка Docker
+  become: true
   block:
       - name: Установить необходимые зависимости
-        become: true
         ansible.builtin.apt:
             state: present
             name:
@@ -19,14 +19,12 @@
             mode: '0755'
 
       - name: Скачать Docker GPG key
-        become: true
         ansible.builtin.get_url:
             url: https://download.docker.com/linux/ubuntu/gpg
             dest: /etc/apt/keyrings/docker.asc
             mode: '0644'
 
       - name: Add Docker repository to Apt sources
-        become: true
         ansible.builtin.shell:
             cmd: |
               set -o pipefail

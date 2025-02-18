@@ -1,14 +1,14 @@
 ---
 - name: Site
-  hosts: ["new_site_mm-prod"]
+  hosts: ["hsr-backend_cache"]
   gather_facts: true
   tasks:
     - name: Запуск роли
       ansible.builtin.include_role:
-        name: docker
-        tasks_from: install.yml
+        name: monitoring
+        tasks_from: node_exporter.yml
 
-    - name: Запуск роли
-      ansible.builtin.include_role:
-        name: docker
-        tasks_from: init_docker_home.yml
+    #- name: Запуск роли
+    #  ansible.builtin.include_role:
+    #    name: monitoring
+    #    tasks_from: cadvisor.yml

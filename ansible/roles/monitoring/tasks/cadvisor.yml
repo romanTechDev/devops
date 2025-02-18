@@ -2,6 +2,14 @@
 - name: Cadvisor
   become: true
   block:
+    - name: Создать директорию cadvisor
+      ansible.builtin.file:
+        path: "{{ monitoring_docker_working_directory_path }}/cadvisor"
+        owner: devops
+        group: devops
+        state: directory
+        mode: '0755'
+
     - name: Запуск контейнера
       community.docker.docker_container:
         name: cadvisor
