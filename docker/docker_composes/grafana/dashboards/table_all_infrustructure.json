@@ -1,718 +1,858 @@
 {
-    "__inputs": [
-      {
-        "name": "DS_VICTORIA_METRICS-TEST",
-        "label": "Victoria_Metrics-TEST",
-        "description": "",
-        "type": "datasource",
-        "pluginId": "prometheus",
-        "pluginName": "Prometheus"
-      }
-    ],
-    "__elements": {},
-    "__requires": [
-      {
-        "type": "grafana",
-        "id": "grafana",
-        "name": "Grafana",
-        "version": "11.5.1"
-      },
-      {
-        "type": "datasource",
-        "id": "prometheus",
-        "name": "Prometheus",
-        "version": "1.0.0"
-      },
-      {
-        "type": "panel",
-        "id": "table",
-        "name": "Table",
-        "version": ""
-      }
-    ],
-    "annotations": {
-      "list": [
-        {
-          "builtIn": 1,
-          "datasource": {
-            "type": "grafana",
-            "uid": "-- Grafana --"
-          },
-          "enable": true,
-          "hide": true,
-          "iconColor": "rgba(0, 211, 255, 1)",
-          "name": "Annotations & Alerts",
-          "type": "dashboard"
-        }
-      ]
+  "__inputs": [
+    {
+      "name": "DS_VICTORIA-METRICS",
+      "label": "Victoria-Metrics",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "11.5.1"
     },
-    "editable": true,
-    "fiscalYearStartMonth": 0,
-    "graphTooltip": 0,
-    "id": null,
-    "links": [],
-    "panels": [
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    }
+  ],
+  "annotations": {
+    "list": [
       {
+        "builtIn": 1,
         "datasource": {
-          "type": "prometheus",
-          "uid": "${DS_VICTORIA_METRICS-TEST}"
+          "type": "grafana",
+          "uid": "-- Grafana --"
         },
-        "description": "Метрики за 15 минут \n\nSys Load:\nСреднее количество процессов, ожидающих выполнения или использующих ресурсы процессора в течение определенного периода времени.\n\n",
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "custom": {
-              "align": "auto",
-              "cellOptions": {
-                "type": "auto"
-              },
-              "inspect": false
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_VICTORIA-METRICS}"
+      },
+      "description": "Метрики за 15 минут \n\nSys Load:\nСреднее количество процессов, ожидающих выполнения или использующих ресурсы процессора в течение определенного периода времени.\n\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
           },
-          "overrides": [
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Uptime"
-              },
-              "properties": [
-                {
-                  "id": "unit",
-                  "value": "s"
-                },
-                {
-                  "id": "custom.width",
-                  "value": 110
-                }
-              ]
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
             },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "la 1"
+            "filterable": false,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
               },
-              "properties": [
-                {
-                  "id": "custom.align",
-                  "value": "center"
-                },
-                {
-                  "id": "custom.width",
-                  "value": 60
-                }
-              ]
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Uptime"
             },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "RAM Used"
+            "properties": [
+              {
+                "id": "unit",
+                "value": "s"
               },
-              "properties": [
-                {
-                  "id": "unit",
-                  "value": "percent"
-                },
-                {
-                  "id": "custom.cellOptions",
-                  "value": {
-                    "type": "color-background"
-                  }
-                },
-                {
-                  "id": "thresholds",
-                  "value": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "color": "transparent",
-                        "value": null
-                      },
-                      {
-                        "color": "yellow",
-                        "value": 80
-                      },
-                      {
-                        "color": "red",
-                        "value": 90
-                      }
-                    ]
-                  }
-                }
-              ]
+              {
+                "id": "custom.width",
+                "value": 110
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "la 1"
             },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "FS Used"
+            "properties": [
+              {
+                "id": "custom.align",
+                "value": "center"
               },
-              "properties": [
-                {
-                  "id": "unit",
-                  "value": "percent"
-                },
-                {
-                  "id": "custom.cellOptions",
-                  "value": {
-                    "type": "color-background"
-                  }
-                },
-                {
-                  "id": "thresholds",
-                  "value": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "color": "transparent",
-                        "value": null
-                      },
-                      {
-                        "color": "yellow",
-                        "value": 70
-                      },
-                      {
-                        "color": "red",
-                        "value": 90
-                      }
-                    ]
-                  }
-                }
-              ]
+              {
+                "id": "custom.width",
+                "value": 60
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "RAM Used"
             },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "CPU Used"
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
               },
-              "properties": [
-                {
-                  "id": "unit",
-                  "value": "percent"
-                },
-                {
-                  "id": "custom.cellOptions",
-                  "value": {
-                    "type": "color-background"
-                  }
-                },
-                {
-                  "id": "thresholds",
-                  "value": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "color": "transparent",
-                        "value": null
-                      },
-                      {
-                        "color": "red",
-                        "value": 95
-                      }
-                    ]
-                  }
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
                 }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "hostname"
               },
-              "properties": [
-                {
-                  "id": "links",
-                  "value": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
                     {
-                      "targetBlank": true,
-                      "title": "",
-                      "url": "http://192.168.1.50:3001/d/rYdddlPWk/infrastruktura?orgId=1&from=now-1h&to=now&timezone=browser&var-project=${__data.fields.project}&var-hostname=${__data.fields.hostname}"
+                      "color": "transparent",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 80
+                    },
+                    {
+                      "color": "red",
+                      "value": 90
                     }
                   ]
                 }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Кол-во Ядер"
               },
-              "properties": [
-                {
-                  "id": "custom.align",
-                  "value": "center"
-                }
-              ]
+              {
+                "id": "custom.width",
+                "value": 121
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "SSD Used"
             },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "la 5"
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
               },
-              "properties": [
-                {
-                  "id": "custom.align",
-                  "value": "center"
-                },
-                {
-                  "id": "custom.width",
-                  "value": 60
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
                 }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "la 15"
               },
-              "properties": [
-                {
-                  "id": "custom.align",
-                  "value": "center"
-                },
-                {
-                  "id": "custom.width",
-                  "value": 60
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "transparent",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 70
+                    },
+                    {
+                      "color": "red",
+                      "value": 90
+                    }
+                  ]
                 }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Net receive"
               },
-              "properties": [
-                {
-                  "id": "unit",
-                  "value": "bytes"
-                }
-              ]
+              {
+                "id": "custom.width",
+                "value": 103
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CPU Used"
             },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Net transmit"
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
               },
-              "properties": [
-                {
-                  "id": "unit",
-                  "value": "bytes"
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
                 }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Input storage"
               },
-              "properties": [
-                {
-                  "id": "unit",
-                  "value": "s"
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "transparent",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 95
+                    }
+                  ]
                 }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Output storage"
               },
-              "properties": [
-                {
-                  "id": "unit",
-                  "value": "s"
-                }
-              ]
-            }
-          ]
-        },
-        "gridPos": {
-          "h": 15,
-          "w": 24,
-          "x": 0,
-          "y": 0
-        },
-        "id": 1,
-        "options": {
-          "cellHeight": "sm",
-          "footer": {
-            "countRows": false,
-            "fields": "",
-            "reducer": [
-              "sum"
-            ],
-            "show": false
-          },
-          "frameIndex": 1,
-          "showHeader": true,
-          "sortBy": []
-        },
-        "pluginVersion": "11.5.1",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "${DS_VICTORIA_METRICS-TEST}"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "node_time_seconds{} - node_boot_time_seconds{}",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "uptime"
+              {
+                "id": "custom.width",
+                "value": 114
+              }
+            ]
           },
           {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "${DS_VICTORIA_METRICS-TEST}"
+            "matcher": {
+              "id": "byName",
+              "options": "hostname"
             },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "count(count(node_cpu_seconds_total{}) by (hostname, cpu)) by (hostname)",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "CPU Cores"
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "",
+                    "url": "http://192.168.1.50:3000/d/rYdddlPWk/infrastruktura?orgId=1&from=now-1h&to=now&timezone=browser&var-project=${__data.fields.project}&var-hostname=${__data.fields.hostname}"
+                  }
+                ]
+              },
+              {
+                "id": "custom.filterable",
+                "value": true
+              }
+            ]
           },
           {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "${DS_VICTORIA_METRICS-TEST}"
+            "matcher": {
+              "id": "byName",
+              "options": "Кол-во Ядер"
             },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "100 * (1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[15m])) by (hostname))",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "CPU Used"
+            "properties": [
+              {
+                "id": "custom.align",
+                "value": "center"
+              },
+              {
+                "id": "custom.width",
+                "value": 127
+              }
+            ]
           },
           {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "${DS_VICTORIA_METRICS-TEST}"
+            "matcher": {
+              "id": "byName",
+              "options": "la 5"
             },
-            "disableTextWrap": false,
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "node_load1",
-            "format": "table",
-            "fullMetaSearch": false,
-            "hide": false,
-            "includeNullMetadata": true,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "Sys Load 1",
-            "useBackend": false
+            "properties": [
+              {
+                "id": "custom.align",
+                "value": "center"
+              },
+              {
+                "id": "custom.width",
+                "value": 60
+              }
+            ]
           },
           {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "${DS_VICTORIA_METRICS-TEST}"
+            "matcher": {
+              "id": "byName",
+              "options": "la 15"
             },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "node_load5{}",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "Sys Load 5"
+            "properties": [
+              {
+                "id": "custom.align",
+                "value": "center"
+              },
+              {
+                "id": "custom.width",
+                "value": 60
+              }
+            ]
           },
           {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "${DS_VICTORIA_METRICS-TEST}"
+            "matcher": {
+              "id": "byName",
+              "options": "Net receive"
             },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "node_load15{}",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "Sys Load 15"
+            "properties": [
+              {
+                "id": "unit",
+                "value": "bytes"
+              }
+            ]
           },
           {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "${DS_VICTORIA_METRICS-TEST}"
+            "matcher": {
+              "id": "byName",
+              "options": "Net transmit"
             },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "(1 - (node_memory_MemAvailable_bytes{} / node_memory_MemTotal_bytes{})) * 100",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "RAM Used"
+            "properties": [
+              {
+                "id": "unit",
+                "value": "bytes"
+              }
+            ]
           },
           {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "${DS_VICTORIA_METRICS-TEST}"
+            "matcher": {
+              "id": "byName",
+              "options": "Input storage"
             },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "100 - ((node_filesystem_avail_bytes{mountpoint=\"/\",fstype!=\"rootfs\"} * 100) / node_filesystem_size_bytes{mountpoint=\"/\",fstype!=\"rootfs\"})",
-            "format": "table",
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "FS Used"
+            "properties": [
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
           },
           {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "${DS_VICTORIA_METRICS-TEST}"
+            "matcher": {
+              "id": "byName",
+              "options": "Output storage"
             },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "(irate(node_disk_write_time_seconds_total{}[1m]) / irate(node_disk_writes_completed_total{}[1m])) * 1000",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "interval": "",
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "I/O"
+            "properties": [
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
           },
           {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "${DS_VICTORIA_METRICS-TEST}"
+            "matcher": {
+              "id": "byName",
+              "options": "Кол-во RAM"
             },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "irate(node_network_receive_bytes_total{device=\"eth0\"}[15m])*8",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "Network receive"
+            "properties": [
+              {
+                "id": "unit",
+                "value": "bytes"
+              },
+              {
+                "id": "custom.align",
+                "value": "center"
+              }
+            ]
           },
           {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "${DS_VICTORIA_METRICS-TEST}"
+            "matcher": {
+              "id": "byName",
+              "options": "SSD"
             },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "irate(node_network_transmit_bytes_total{device=\"eth0\"}[15m])*8",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "Network transmit"
+            "properties": [
+              {
+                "id": "unit",
+                "value": "bytes"
+              },
+              {
+                "id": "custom.align",
+                "value": "center"
+              }
+            ]
           },
           {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "${DS_VICTORIA_METRICS-TEST}"
+            "matcher": {
+              "id": "byName",
+              "options": "project"
             },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "irate(node_disk_write_time_seconds_total{}[$__rate_interval]) / irate(node_disk_writes_completed_total{}[$__rate_interval])",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "Input storage"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "${DS_VICTORIA_METRICS-TEST}"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "irate(node_disk_read_time_seconds_total{}[$__rate_interval]) / irate(node_disk_reads_completed_total{}[$__rate_interval])",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "Output Storage"
+            "properties": [
+              {
+                "id": "custom.filterable",
+                "value": true
+              }
+            ]
           }
-        ],
-        "title": "Обща сводка по контуру",
-        "transformations": [
-          {
-            "id": "groupBy",
-            "options": {
-              "fields": {
-                "Value #CPU Cores": {
-                  "aggregations": [
-                    "lastNotNull"
-                  ],
-                  "operation": "aggregate"
-                },
-                "Value #CPU Used": {
-                  "aggregations": [
-                    "lastNotNull"
-                  ],
-                  "operation": "aggregate"
-                },
-                "Value #FS Used": {
-                  "aggregations": [
-                    "lastNotNull"
-                  ],
-                  "operation": "aggregate"
-                },
-                "Value #Input storage": {
-                  "aggregations": [
-                    "lastNotNull"
-                  ],
-                  "operation": "aggregate"
-                },
-                "Value #Network receive": {
-                  "aggregations": [
-                    "lastNotNull"
-                  ],
-                  "operation": "aggregate"
-                },
-                "Value #Network transmit": {
-                  "aggregations": [
-                    "lastNotNull"
-                  ],
-                  "operation": "aggregate"
-                },
-                "Value #Output Storage": {
-                  "aggregations": [
-                    "lastNotNull"
-                  ],
-                  "operation": "aggregate"
-                },
-                "Value #RAM Used": {
-                  "aggregations": [
-                    "lastNotNull"
-                  ],
-                  "operation": "aggregate"
-                },
-                "Value #Sys Load 1": {
-                  "aggregations": [
-                    "lastNotNull"
-                  ],
-                  "operation": "aggregate"
-                },
-                "Value #Sys Load 15": {
-                  "aggregations": [
-                    "lastNotNull"
-                  ],
-                  "operation": "aggregate"
-                },
-                "Value #Sys Load 5": {
-                  "aggregations": [
-                    "lastNotNull"
-                  ],
-                  "operation": "aggregate"
-                },
-                "Value #uptime": {
-                  "aggregations": [
-                    "lastNotNull"
-                  ],
-                  "operation": "aggregate"
-                },
-                "environment": {
-                  "aggregations": []
-                },
-                "hostname": {
-                  "aggregations": [],
-                  "operation": "groupby"
-                },
-                "project": {
-                  "aggregations": []
-                }
+        ]
+      },
+      "gridPos": {
+        "h": 15,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": [
+            "Value #CPU Cores (lastNotNull)",
+            "Value #Кол-во RAM (lastNotNull)",
+            "Value #SDD (lastNotNull)"
+          ],
+          "reducer": [
+            "sum"
+          ],
+          "show": true
+        },
+        "frameIndex": 1,
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "11.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIA-METRICS}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "node_time_seconds{} - node_boot_time_seconds{}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "uptime"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIA-METRICS}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "count(count(node_cpu_seconds_total{}) by (hostname, cpu)) by (hostname)",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "CPU Cores"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIA-METRICS}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "node_memory_MemTotal_bytes{}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "Кол-во RAM"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIA-METRICS}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "100 * (1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[15m])) by (hostname))",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "CPU Used"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIA-METRICS}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "node_filesystem_size_bytes{mountpoint=\"/\",fstype!=\"rootfs\"}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "SDD"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIA-METRICS}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "100 - ((node_filesystem_avail_bytes{mountpoint=\"/\",fstype!=\"rootfs\"} * 100) / node_filesystem_size_bytes{mountpoint=\"/\",fstype!=\"rootfs\"})",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "SSD Used"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIA-METRICS}"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "node_load1",
+          "format": "table",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "Sys Load 1",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIA-METRICS}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "node_load5{}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "Sys Load 5"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIA-METRICS}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "node_load15{}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "Sys Load 15"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIA-METRICS}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "(1 - (node_memory_MemAvailable_bytes{} / node_memory_MemTotal_bytes{})) * 100",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "RAM Used"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIA-METRICS}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "(irate(node_disk_write_time_seconds_total{}[1m]) / irate(node_disk_writes_completed_total{}[1m])) * 1000",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "I/O"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIA-METRICS}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "irate(node_network_receive_bytes_total{device=\"eth0\"}[15m])*8",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "Network receive"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIA-METRICS}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "irate(node_network_transmit_bytes_total{device=\"eth0\"}[15m])*8",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "Network transmit"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIA-METRICS}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "irate(node_disk_write_time_seconds_total{}[$__rate_interval]) / irate(node_disk_writes_completed_total{}[$__rate_interval])",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "Input storage"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIA-METRICS}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "irate(node_disk_read_time_seconds_total{}[$__rate_interval]) / irate(node_disk_reads_completed_total{}[$__rate_interval])",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "Output Storage"
+        }
+      ],
+      "title": "Общая сводка по контуру",
+      "transformations": [
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "Value #CPU Cores": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "Value #CPU Used": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "Value #FS Used": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "Value #Input storage": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "Value #Network receive": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "Value #Network transmit": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "Value #Output Storage": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "Value #RAM Used": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "Value #SDD": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "Value #SSD Used": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "Value #Sys Load 1": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "Value #Sys Load 15": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "Value #Sys Load 5": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "Value #uptime": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "Value #Кол-во RAM": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "Value #Хранилище": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "Value #Хранилище Used": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "environment": {
+                "aggregations": []
+              },
+              "hostname": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "project": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "groupby"
               }
             }
-          },
-          {
-            "id": "merge",
-            "options": {}
-          },
-          {
-            "id": "organize",
-            "options": {
-              "excludeByName": {},
-              "includeByName": {},
-              "indexByName": {
-                "Value #CPU Cores (lastNotNull)": 2,
-                "Value #CPU Used (lastNotNull)": 3,
-                "Value #FS Used (lastNotNull)": 8,
-                "Value #Input storage (lastNotNull)": 11,
-                "Value #Network receive (lastNotNull)": 9,
-                "Value #Network transmit (lastNotNull)": 10,
-                "Value #Output Storage (lastNotNull)": 12,
-                "Value #RAM Used (lastNotNull)": 7,
-                "Value #Sys Load 1 (lastNotNull)": 4,
-                "Value #Sys Load 15 (lastNotNull)": 6,
-                "Value #Sys Load 5 (lastNotNull)": 5,
-                "Value #uptime (lastNotNull)": 1,
-                "hostname": 0
-              },
-              "renameByName": {
-                "Value #CPU Cores (lastNotNull)": "Кол-во Ядер",
-                "Value #CPU Used (lastNotNull)": "CPU Used",
-                "Value #FS Used (lastNotNull)": "FS Used",
-                "Value #Input storage (lastNotNull)": "Input storage",
-                "Value #Network receive (lastNotNull)": "Net receive",
-                "Value #Network transmit (lastNotNull)": "Net transmit",
-                "Value #Output Storage (lastNotNull)": "Output storage",
-                "Value #RAM Used (lastNotNull)": "RAM Used",
-                "Value #Sys Load 1 (lastNotNull)": "la 1",
-                "Value #Sys Load 15 (lastNotNull)": "la 15",
-                "Value #Sys Load 5 (lastNotNull)": "la 5",
-                "Value #uptime (lastNotNull)": "Uptime",
-                "hostname": ""
-              }
+          }
+        },
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "includeByName": {},
+            "indexByName": {
+              "Value #CPU Cores (lastNotNull)": 3,
+              "Value #CPU Used (lastNotNull)": 4,
+              "Value #Input storage (lastNotNull)": 14,
+              "Value #Network receive (lastNotNull)": 12,
+              "Value #Network transmit (lastNotNull)": 13,
+              "Value #RAM Used (lastNotNull)": 6,
+              "Value #SDD (lastNotNull)": 7,
+              "Value #SSD Used (lastNotNull)": 8,
+              "Value #Sys Load 1 (lastNotNull)": 9,
+              "Value #Sys Load 15 (lastNotNull)": 11,
+              "Value #Sys Load 5 (lastNotNull)": 10,
+              "Value #uptime (lastNotNull)": 2,
+              "Value #Кол-во RAM (lastNotNull)": 5,
+              "hostname": 1,
+              "project": 0
+            },
+            "renameByName": {
+              "Value #CPU Cores (lastNotNull)": "Кол-во Ядер",
+              "Value #CPU Used (lastNotNull)": "CPU Used",
+              "Value #FS Used (lastNotNull)": "FS Used",
+              "Value #Input storage (lastNotNull)": "Input storage",
+              "Value #Network receive (lastNotNull)": "Net receive",
+              "Value #Network transmit (lastNotNull)": "Net transmit",
+              "Value #Output Storage (lastNotNull)": "Output storage",
+              "Value #RAM Used (lastNotNull)": "RAM Used",
+              "Value #SDD (lastNotNull)": "SSD",
+              "Value #SSD Used (lastNotNull)": "SSD Used",
+              "Value #Sys Load 1 (lastNotNull)": "la 1",
+              "Value #Sys Load 15 (lastNotNull)": "la 15",
+              "Value #Sys Load 5 (lastNotNull)": "la 5",
+              "Value #uptime (lastNotNull)": "Uptime",
+              "Value #Кол-во RAM (lastNotNull)": "Кол-во RAM",
+              "Value #Хранилище (lastNotNull)": "Хранилище",
+              "Value #Хранилище Used (lastNotNull)": "Хранилище Used ",
+              "hostname": "",
+              "project (lastNotNull)": "project"
             }
           }
-        ],
-        "type": "table"
-      }
-    ],
-    "refresh": "",
-    "schemaVersion": 40,
-    "tags": [],
-    "templating": {
-      "list": []
-    },
-    "time": {
-      "from": "now-6h",
-      "to": "now"
-    },
-    "timepicker": {},
-    "timezone": "browser",
-    "title": "Общее",
-    "uid": "becmdalxsllhcd",
-    "version": 24,
-    "weekStart": ""
-  }
+        }
+      ],
+      "type": "table"
+    }
+  ],
+  "refresh": "5s",
+  "schemaVersion": 40,
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Общее",
+  "uid": "becmdalxsllhcd",
+  "version": 24,
+  "weekStart": ""
+}

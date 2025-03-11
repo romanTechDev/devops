@@ -1,0 +1,10 @@
+services:
+  nginx:
+    image: nginx:1.27.4-alpine3.21-perl
+    container_name: nginx
+    ports:
+      - "80:80"
+    read_only: true
+    volumes:
+      - ./nginx-cache:/var/cache/nginx
+      - ./nginx-pid:/var/run

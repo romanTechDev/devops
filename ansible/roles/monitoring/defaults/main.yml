@@ -1,6 +1,11 @@
 monitoring_devops_password: ""
 
-monitoring_docker_working_directory_path: "/home/devops/docker"
+monitoring_environment: production
+
+monitoring_docker_working_directory_path: "/docker"
+
+monitoring_files_owner: "petrovr_adm"
+monitoring_files_group_owner: "admins"
 # monitoring_docker_composes_path: "{{ monitoring_docker_working_directory_path }}/docker_composes"
 # monitoring_local_docker_composes_files:
 #   - docker/docker_composes/node-exporter/docker-compose.yml

@@ -1,4 +1,13 @@
 ---
 # defaults file for docker
 docker_devops_password: ""
-docker_working_directory_path: "/home/devops/docker"
+
+docker_environment: production
+
+docker_working_directory_path: "/docker"
+
+docker_files_owner: "petrovr_adm"
+docker_files_group_owner: "admins"
+
+# docker_devops_password: ""
+# docker_working_directory_path: "/home/devops/docker"

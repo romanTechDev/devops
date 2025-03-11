@@ -5,3 +5,6 @@ docker run -it --rm \
   --webroot \
   --webroot-path=/var/www/letsencrypt \
   -d <domain>
+
+mkdir -p /var/www/letsencrypt/.well-known/acme-challenge
+

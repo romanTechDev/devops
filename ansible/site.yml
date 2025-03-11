@@ -1,14 +1,25 @@
----
-- name: Site
-  hosts: ["hsr-backend_cache"]
-  gather_facts: true
-  tasks:
-    - name: Запуск роли
-      ansible.builtin.include_role:
-        name: monitoring
-        tasks_from: node_exporter.yml
+# ---
+# - name: Site
+#   hosts: ["new_site_mm-frontend-prod"]
+#   gather_facts: true
+#   tasks:
+#     - name: Запуск роли
+#       ansible.builtin.include_role:
+#         name: monitoring
+#         tasks_from: node_exporter.yml
 
-    #- name: Запуск роли
-    #  ansible.builtin.include_role:
-    #    name: monitoring
-    #    tasks_from: cadvisor.yml
+#     - name: Запуск роли
+#       ansible.builtin.include_role:
+#         name: monitoring
+#         tasks_from: cadvisor.yml
+
+# playbook.yml
+---
+- name: Запуск роли
+  hosts: new_site_mm-frontend-prod
+  # gather_facts: true
+  roles:
+    - role: docker
+      vars:
+        docker_service: node_exporter
+      tags: docker_compose-service

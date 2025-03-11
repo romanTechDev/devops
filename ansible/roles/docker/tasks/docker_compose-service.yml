@@ -1,0 +1,24 @@
+---
+- name: Docker_compose-service
+  become: true
+  # when: true
+  tags: docker_compose-service
+  block:
+    - name: "Создать директорию {{ docker_service }}"
+      ansible.builtin.file:
+        path: "{{ docker_working_directory_path }}/{{ docker_environment }}/{{ docker_service }}"
+        owner: "{{ docker_files_owner }}"
+        group: "{{ docker_files_group_owner }}"
+        state: directory
+        mode: '0755'
+
+    - name: "Копирование docker_compose файла {{ docker_service }}"
+      ansible.builtin.template:
+        src: "/Users/roman/Documents/VisualCodeProjects/devops/docker/docker_composes/{{ docker_service }}/docker-compose.yml"
+        dest: "{{ docker_working_directory_path }}/{{ docker_environment }}/{{ docker_service }}/docker-compose.yml"
+        mode: '0644'
+
+    - name: Запуск сервиса с помощью docker-compose
+      community.docker.docker_compose_v2:
+        project_src: "{{ docker_docker_working_directory_path }}/{{ docker_environment }}/{{ docker_service }}"
+        state: present

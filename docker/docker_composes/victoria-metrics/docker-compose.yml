@@ -1,16 +1,13 @@
 services:
-  victoria-metrics:
+  victoria_metrics-prod:
     image: victoriametrics/victoria-metrics:v1.110.0
-    container_name: victoria-metrics
+    container_name: victoria_metrics-prod
     ports:
-      - "192.168.1.110:8428:8428"
-    #command: >
-    #  /victoria-metrics
-    #  -retentionPeriod=1
-    #  -httpListenAddr=:8428
-    #  -storageDataPath=/storage
+      #- "127.0.0.1:8428:8428"
+      - "0.0.0.0:8428:8428"
+    command:
+      - '--retentionPeriod=90' # Хранить данные 30 дней
+      - '--memory.allowedPercent=75' # Использовать до 75% оперативной памяти
+      - '--search.maxQueryDuration=30s' # Ограничение времени выполнения запросов
     volumes:
-      - victoria-metrics-data:/storage
-
-volumes:
-  victoria-metrics-data:
+      - ./metrics_storage:/victoria-metrics-data
