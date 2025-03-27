@@ -1,0 +1,10 @@
+[[runners]]
+  name = "My GitLab Runner"
+  url = "https://gitlab.com/"  # URL вашего GitLab сервера
+  token = "YOUR_RUNNER_TOKEN"  # Токен для регистрации Runner
+  executor = "docker"
+  [runners.docker]
+    image = "alpine:3.21.3"  # Базовый образ, используемый для ваших задач
+    privileged = true  # Установите true, если вам нужны привилегированные контейнеры
+    volumes = ["/var/run/docker.sock:/var/run/docker.sock", "/cache"]
+    helper_image = "gitlab/gitlab-runner-helper:alpine3.21-x86_64-bleeding"
