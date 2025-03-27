@@ -1,0 +1,231 @@
+[
+    {
+        "id": "500080401ba4f811",
+        "type": "tab",
+        "label": "Нагрузочное тестирование",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "747c31fcdd0e60b6",
+        "type": "debug",
+        "z": "500080401ba4f811",
+        "name": "debug 1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 640,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "916ace37fb77fa05",
+        "type": "delay",
+        "z": "500080401ba4f811",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "10",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 670,
+        "y": 180,
+        "wires": [
+            [
+                "23ec52c0ff0cbbe5",
+                "bd15480686527191"
+            ]
+        ]
+    },
+    {
+        "id": "bd15480686527191",
+        "type": "http request",
+        "z": "500080401ba4f811",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://stage-backend-moymir.moymir.tech/api/v1/pickup_points/5post?topLeftPointLatitude=64.34102581649844&topLeftPointLongitude=28.351422751832224&bottomRightPointLatitude=48.62785800123374&bottomRightPointLongitude=55.9323735149114",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 990,
+        "y": 180,
+        "wires": [
+            [
+                "c32379df76887604"
+            ]
+        ]
+    },
+    {
+        "id": "23ec52c0ff0cbbe5",
+        "type": "debug",
+        "z": "500080401ba4f811",
+        "name": "debug 2",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "87eb046ba04fb845",
+        "type": "trigger",
+        "z": "500080401ba4f811",
+        "name": "",
+        "op1": "1",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "-250",
+        "extend": false,
+        "overrideDelay": true,
+        "units": "ms",
+        "reset": "stop",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 360,
+        "y": 180,
+        "wires": [
+            [
+                "916ace37fb77fa05"
+            ]
+        ]
+    },
+    {
+        "id": "023728f9f2f54636",
+        "type": "catch",
+        "z": "500080401ba4f811",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 170,
+        "y": 300,
+        "wires": [
+            [
+                "d689a269cd0ce7b1"
+            ]
+        ]
+    },
+    {
+        "id": "d689a269cd0ce7b1",
+        "type": "delay",
+        "z": "500080401ba4f811",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "10",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 410,
+        "y": 300,
+        "wires": [
+            [
+                "747c31fcdd0e60b6"
+            ]
+        ]
+    },
+    {
+        "id": "f099d5cff2228ac1",
+        "type": "inject",
+        "z": "500080401ba4f811",
+        "name": "Стоп",
+        "props": [
+            {
+                "p": "reset",
+                "v": "true",
+                "vt": "bool"
+            },
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "stop",
+        "payloadType": "str",
+        "x": 110,
+        "y": 220,
+        "wires": [
+            [
+                "87eb046ba04fb845"
+            ]
+        ]
+    },
+    {
+        "id": "0441e027d01e2da6",
+        "type": "inject",
+        "z": "500080401ba4f811",
+        "name": "Старт",
+        "props": [
+            {
+                "p": "delay",
+                "v": "100",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 110,
+        "y": 140,
+        "wires": [
+            [
+                "87eb046ba04fb845"
+            ]
+        ]
+    },
+    {
+        "id": "c32379df76887604",
+        "type": "debug",
+        "z": "500080401ba4f811",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 140,
+        "wires": []
+    }
+]

@@ -1,0 +1,9 @@
+services:
+  nodered:
+    image: nodered/node-red:latest
+    container_name: nodered
+    volumes:
+      - ./data:/data
+    ports:
+      - "1880:1880"
+    restart: always

@@ -1,0 +1,29 @@
+0 verbose cli /usr/local/bin/node /usr/local/bin/npm
+1 info using npm@10.8.2
+2 info using node@v20.19.0
+3 silly config load:file:/usr/local/lib/node_modules/npm/npmrc
+4 silly config load:file:/data/.npmrc
+5 silly config load:file:/usr/src/node-red/.npmrc
+6 silly config load:file:/usr/local/etc/npmrc
+7 verbose title npm remove node-red-contrib-array-permutations
+8 verbose argv "remove" "--no-audit" "--no-update-notifier" "--no-fund" "--save" "node-red-contrib-array-permutations"
+9 verbose logfile logs-max:10 dir:/data/.npm/_logs/2025-03-27T10_54_19_891Z-
+10 verbose logfile /data/.npm/_logs/2025-03-27T10_54_19_891Z-debug-0.log
+11 silly packumentCache heap:2197815296 maxSize:549453824 maxEntrySize:274726912
+12 silly logfile done cleaning log files
+13 silly idealTree buildDeps
+14 silly reify mark retired [ '/data/node_modules/node-red-contrib-array-permutations' ]
+15 silly reify mark retired [ '/data/node_modules/node-red-contrib-logger' ]
+16 silly reify moves {
+16 silly reify   '/data/node_modules/node-red-contrib-array-permutations': '/data/node_modules/.node-red-contrib-array-permutations-5WDvpl0v',
+16 silly reify   '/data/node_modules/node-red-contrib-logger': '/data/node_modules/.node-red-contrib-logger-WdcVOYUC'
+16 silly reify }
+17 silly REMOVE node_modules/node-red-contrib-logger
+18 silly REMOVE node_modules/node-red-contrib-logger/node_modules/node-red-contrib-logger
+19 silly REMOVE node_modules/node-red-contrib-array-permutations
+20 verbose cwd /data
+21 verbose os Linux 6.10.14-linuxkit
+22 verbose node v20.19.0
+23 verbose npm  v10.8.2
+24 verbose exit 0
+25 info ok
