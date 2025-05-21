@@ -1,6 +1,6 @@
 services:
   gitlab-runner:
-    image: gitlab/gitlab-runner:alpine3.19-bleeding
+    image: gitlab/gitlab-runner:alpine3.21-bleeding
     container_name: gitlab-runner
     restart: always
     volumes:

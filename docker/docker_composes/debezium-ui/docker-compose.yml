@@ -1,0 +1,17 @@
+# KAFKA_CONNECT_URIS=http://connect:8083 quay.io/debezium/debezium-ui:{debezium-version}
+
+services:
+  debezium-ui:
+    image: debezium/debezium-ui:2.1.2.Final
+    container_name: debezium-ui
+    environment:
+      - KAFKA_CONNECT_URIS=http://debezium-connect:8083
+    ports:
+      - 8080:8080
+    restart: unless-stopped
+    networks:
+      - kafka-net
+
+networks:
+  kafka-net:
+    external: true

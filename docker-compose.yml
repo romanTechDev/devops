@@ -1,0 +1,18 @@
+services:
+  frontend-site_mm:
+    build:
+      context: ./
+      args:
+        NODE_VERSION: ${NODE_VERSION}
+        ALPINE_VERSION: ${ALPINE_VERSION}
+        NODE_ENVIRONMENT: ${NODE_ENVIRONMENT}
+    image: ${DOCKER_IMAGE_NAME}
+    container_name: ${DOCKER_CONTAINER_NAME}
+    ports:
+      - "${DOCKER_FRONTEND_INTERFACE}:${DOCKER_FRONTEND_PORT}:3000"
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2048M

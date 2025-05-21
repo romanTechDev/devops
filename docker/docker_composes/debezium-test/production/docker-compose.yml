@@ -1,0 +1,160 @@
+
+services:
+  debezium-ui-test:
+    #image: debezium/debezium-ui:2.1.2.Final
+    image: quay.io/debezium/debezium-ui:2.4
+    container_name: debezium-ui-test
+    environment:
+      - KAFKA_CONNECT_URIS=http://debezium-connect-test:8083
+    ports:
+      - 8085:8080
+    restart: unless-stopped
+    networks:
+      - kafka-debezium
+
+  debezium-connect-test:
+    image: quay.io/debezium/connect:3.0.8.Final
+    container_name: debezium-connect-test
+    environment:
+      GROUP_ID: '1'
+      CONFIG_STORAGE_TOPIC: my_connect_configs
+      OFFSET_STORAGE_TOPIC: my_connect_offsets
+      STATUS_STORAGE_TOPIC: my_connect_statuses
+
+      BOOTSTRAP_SERVERS: 'kafka1-debezium:9052,kafka2-debezium:9054'
+
+      ENABLE_DEBEZIUM_KC_REST_EXTENSION: true
+
+      CONNECT_TOPIC_CREATION_ENABLE: true
+
+      #KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      #CONNECT_TOPIC_CREATION_ENABLE: "true"
+      #TOPIC_CREATION_ENABLE: "true"  # Включение создания тем
+
+      #ENABLE_DEBEZIUM_KC_REST_EXTENSION: true
+      #CONNECT_REST_EXTENSION_CLASSES: io.debezium.kcrestextension.DebeziumConnectRestExtension,io.debezium.connector.mysql.rest.DebeziumMySqlConnectRestExtension,io.debezium.connector.postgresql.rest.DebeziumPostgresConnectRestExtension,io.debezium.connector.mongodb.rest.DebeziumMongoDbConnectRestExtension,io.debezium.connector.oracle.rest.DebeziumOracleConnectRestExtension,io.debezium.connector.sqlserver.rest.DebeziumSqlServerConnectRestExtension
+      #ENABLE_DEBEZIUM_SCRIPTING: true
+      #CONNECT_ACCESS_CONTROL_ALLOW_ORIGIN: '*'
+      #CONNECT_ACCESS_CONTROL_ALLOW_METHODS: GET,POST,PUT,DELETE
+      #CONNECT_ACCESS_CONTROL_ALLOW_HEADERS: origin,content-type,accept,authorization
+    ports:
+      - 8083:8083
+    networks:
+      - kafka-debezium
+
+  kafka-ui-debezium:
+    image: provectuslabs/kafka-ui:v0.7.2
+    container_name: kafka-ui-debezium
+    ports:
+      - "8086:8080"
+    environment:
+      - DYNAMIC_CONFIG_ENABLED=true
+    volumes:
+      - ./config.yml:/etc/kafkaui/dynamic_config.yaml
+    networks:
+      - kafka-debezium
+
+  kafka1-debezium:
+    image: confluentinc/cp-kafka:latest
+    container_name: kafka1-debezium
+    environment:
+      # реплик темы, содержащей сдвиги (offsets), будет создано
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 2
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      # Уникальный идентификатор узла
+      KAFKA_NODE_ID: 1
+      # Уникальный идентификатор кластера (генерируется один раз)
+      CLUSTER_ID: 0Ea8Ov0mSwS-YUjgXjGcHA
+      # Роли узла (брокер и контроллер)
+      KAFKA_PROCESS_ROLES: broker,controller
+
+      # Используемые Протоколы
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT
+
+      # Настройка слушателей
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9052,CONTROLLER://0.0.0.0:9053
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka1-debezium:9052,CONTROLLER://kafka1-debezium:9054
+
+
+      # Настройка контроллеров
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka1-debezium:9053,2@kafka2-debezium:9055
+    ports:
+      - "9052:9052"
+      - "9053:9053"
+    # volumes:
+    #   - kafka1-data:/var/lib/kafka/data
+    networks:
+      - kafka-debezium
+
+  kafka2-debezium:
+    image: confluentinc/cp-kafka:latest
+    container_name: kafka2-debezium
+    environment:
+      # реплик темы, содержащей сдвиги (offsets), будет создано
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 2
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      # Уникальный идентификатор узла
+      KAFKA_NODE_ID: 2
+      # Уникальный идентификатор кластера (генерируется один раз)
+      CLUSTER_ID: 0Ea8Ov0mSwS-YUjgXjGcHA
+      # Роли узла (брокер и контроллер)
+      KAFKA_PROCESS_ROLES: broker,controller
+
+      # Используемые Протоколы
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT
+
+      # Настройка слушателей (Локально)
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9054,CONTROLLER://0.0.0.0:9055
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka2-debezium:9054,CONTROLLER://kafka2-debezium:9055
+
+
+      # Настройка контроллеров
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka1-debezium:9053,2@kafka2-debezium:9055
+    ports:
+      - "9054:9054"
+      - "9055:9055"
+    # volumes:
+    #   - kafka2-data:/var/lib/kafka/data
+    networks:
+      - kafka-debezium
+
+  postgresql-debezium:
+    image: postgres:16.8-alpine3.20
+    container_name: postgresql-debezium
+    environment:
+      POSTGRES_USER: debezium
+      POSTGRES_PASSWORD: definitelynotpassword
+      POSTGRES_DB: dbname
+      PGDATA: /var/lib/postgresql/data  # Устанавливаем PGDATA
+      # PGDATA: /var/lib/postgresql/data  # Задание пути к каталогу данных
+      # POSTGRES_INITDB_ARGS: "--wal-level=logical"  # Установка параметра wal_level
+    ports:
+      - "5435:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      # - ./init-db:/docker-entrypoint-initdb.d
+      # - postgres_archives:/var/lib/postgresql/data/archives
+      # - ./postgresql.conf:/etc/postgresql/postgresql.conf
+      # - ./pg_hba.conf:/etc/postgresql/pg_hba.conf
+    # command: >
+    #   postgres -D /var/lib/postgresql/data/pgdata -c wal_level=logical
+    command: >
+      postgres -c wal_level=logical
+    networks:
+      - kafka-debezium
+
+volumes:
+  postgres_data:
+    # driver: local
+  postgres_archives:
+    driver: local
+  kafka1-data:
+    driver: local
+  kafka2-data:
+    driver: local
+
+networks:
+  kafka-debezium:
+    driver: bridge
