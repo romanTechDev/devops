@@ -13,26 +13,19 @@ PUBLIC_KEY=$4        # Публичный SSH ключ для ansible
 
 # Команды для выполнения на удаленном сервере с sudo
 SSH_COMMAND="sudo bash -c ' \
-    # Создание пользователя ansible \
+    apt update && \
+    apt install ansible -y && \
     useradd -m -s /bin/bash ansible && \
-    # Установка пароля для пользователя ansible \
     echo \"ansible:$PASSWORD\" | chpasswd && \
-    # Создание директории .ssh \
     mkdir -p /home/ansible/.ssh && \
-    # Установка прав на .ssh \
     chmod 700 /home/ansible/.ssh && \
     chown ansible:ansible /home/ansible/.ssh && \
-    # Создание файла authorized_keys \
     touch /home/ansible/.ssh/authorized_keys && \
-    # Установка прав на authorized_keys \
     chmod 600 /home/ansible/.ssh/authorized_keys && \
     chown ansible:ansible /home/ansible/.ssh/authorized_keys && \
-    # Добавление публичного ключа в authorized_keys \
     echo \"$PUBLIC_KEY\" >> /home/ansible/.ssh/authorized_keys && \
-    # Установка прав на файл authorized_keys (если это еще не сделано) \
     chmod 600 /home/ansible/.ssh/authorized_keys && \
     chown ansible:ansible /home/ansible/.ssh/authorized_keys && \
-    # Добавление ansible в sudoers с правами без пароля \
     echo \"ansible ALL=(ALL) NOPASSWD: ALL\" >> /etc/sudoers \
 '"
 

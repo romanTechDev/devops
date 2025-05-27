@@ -1,0 +1,22 @@
+# Установка #
+# docker exec -it <vault> /bin/sh
+# vault operator init
+# Скопировать все unseal ключи и root token
+
+
+services:
+  vault-prod:
+    image: hashicorp/vault:latest
+    container_name: vault-prod
+    ports:
+      - "8200:8200"
+      - "8201:8201"
+    environment:
+      - VAULT_ADDR=http://vault-server:8200
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - ./config.hcl:/vault/config/config.hcl
+      - .data:/vault/data
+    entrypoint: vault server -config=/vault/config/config.hcl
+    restart: unless-stopped

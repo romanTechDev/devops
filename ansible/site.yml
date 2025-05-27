@@ -16,10 +16,10 @@
 # playbook.yml
 ---
 - name: Запуск роли
-  hosts: new_site_mm-frontend-prod
+  hosts: hsr-api_server
   # gather_facts: true
   roles:
     - role: docker
-      vars:
-        docker_service: node_exporter
-      tags: docker_compose-service
+      # vars:
+      #   docker_service: node_exporter
+      tags: Install
