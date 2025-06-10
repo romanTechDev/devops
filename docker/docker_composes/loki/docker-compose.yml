@@ -1,10 +1,12 @@
 services:
   loki:
-    image: grafana/loki:3.3.2
+    image: grafana/loki:3.5
     container_name: loki
     ports:
       - "3100:3100"
     volumes:
-      - ./local-config.yaml:/etc/loki/local-config.yaml
-      - ./loki_storage:/tmp/loki
-    restart: always
+      - ./loki-config.yaml:/etc/loki/config.yaml
+      # - ./loki_storage:/tmp/loki
+      # /data/retention
+    command: "-config.file=/etc/loki/config.yaml -target=all"
+    restart: unless-stopped

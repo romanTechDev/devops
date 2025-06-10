@@ -1,0 +1,13 @@
+name: Webhook Response
+
+on:
+  repository_dispatch:
+    types: [trigger-action]
+
+jobs:
+  handle-webhook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check the incoming request
+        run: |
+          echo "Received request payload: ${{ github.event.client_payload }}"

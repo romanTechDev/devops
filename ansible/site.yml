@@ -16,7 +16,7 @@
 # playbook.yml
 ---
 - name: Запуск роли
-  hosts: hsr-api_server
+  hosts: just-host-n8n
   # gather_facts: true
   roles:
     - role: docker
