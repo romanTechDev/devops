@@ -31,3 +31,11 @@ docker run -it --rm \
   --server https://acme-v02.api.letsencrypt.org/directory \
   -d "*.hsr24.ru" \
   -d "hsr24.ru"
+
+
+  docker run -it --rm \
+    -v "/etc/letsencrypt:/etc/letsencrypt" \
+    -v "/var/www/certbot:/var/www/certbot" \
+    certbot/certbot renew \
+    --webroot \
+    --webroot-path=/var/www/certbot

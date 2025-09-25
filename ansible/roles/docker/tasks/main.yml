@@ -1,4 +1,8 @@
 ---
-- name: Docker
-  ansible.builtin.import_tasks:
-    file: install.yml
+- name: Init docker home
+  ansible.builtin.import_tasks: init_docker_home.yml
+  tags: init_docker_home
+
+- name: Install
+  ansible.builtin.import_tasks: install.yml
+  tags: install

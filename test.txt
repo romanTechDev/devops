@@ -1,5 +1,0 @@
-curl -G "https://loki.prod.hsr24.ru/loki/api/v1/query_range" \
-    --data-urlencode 'query={project="site_mm", hostname="gateway", filename=~"/var/log/nginx/access.log"}' \
-    --data-urlencode 'start=1744902682' \
-    --data-urlencode 'end=1744906084' \
-    -o logs.json

@@ -1,25 +1,24 @@
-# ---
-# - name: Site
-#   hosts: ["new_site_mm-frontend-prod"]
-#   gather_facts: true
-#   tasks:
-#     - name: Запуск роли
-#       ansible.builtin.include_role:
-#         name: monitoring
-#         tasks_from: node_exporter.yml
-
-#     - name: Запуск роли
-#       ansible.builtin.include_role:
-#         name: monitoring
-#         tasks_from: cadvisor.yml
-
-# playbook.yml
 ---
 - name: Запуск роли
-  hosts: just-host-n8n
-  # gather_facts: true
-  roles:
-    - role: docker
-      # vars:
-      #   docker_service: node_exporter
-      tags: Install
+  hosts: hsr-crm
+  gather_facts: true
+  tasks:
+    - name: Запуск роли
+      ansible.builtin.include_role:
+        name: docker
+        tasks_from: install.yml
+
+    - name: Запуск роли
+      ansible.builtin.include_role:
+        name: docker
+        tasks_from: init_docker_home.yml
+
+    - name: Запуск роли
+      ansible.builtin.include_role:
+        name: monitoring
+        tasks_from: install.yml
+      vars:
+        monitoring_services:
+          - node_exporter
+          - cadvisor
+          # - alloy

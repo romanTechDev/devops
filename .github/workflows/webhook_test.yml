@@ -11,3 +11,14 @@ jobs:
       - name: Check the incoming request
         run: |
           echo "Received request payload: ${{ github.event.client_payload }}"
+
+           "currentUser": "${{ github.event.client_payload.currentUser }}",
+           "currentDateTime": "${{ github.event.client_payload.currentDateTime }}",
+           "issue_id": "${{ github.event.client_payload.issue_id }}",
+           "issue_start": "${{ github.event.client_payload.issue_start }}",
+           "issue_summary": "${{ github.event.client_payload.issue_summary }}",
+           "issue_assignee": "${{ github.event.client_payload.issue_assignee }}",
+           "issue_otvetstvennyjzaproekt": "${{ github.event.client_payload.issue_otvetstvennyjzaproekt }}",
+           "issue_queue": "${{ github.event.client_payload.issue_queue }}",
+           "issue_modifier": "${{ github.event.client_payload.issue_modifier }}",
+           "issue_status": "${{ github.event.client_payload.issue_status }}"

@@ -13,11 +13,11 @@ monitoring_files_group_owner: "admins"
 
 monitoring_grafana_version: "11.5.0"
 
-monitoring_loki_url: "http://192.168.1.110:3100"
+monitoring_loki_url: "http://192.168.1.50:3100"
 monitoring_loki_version: "3.3.2"
 monitoring_loki_port: "3100"
 
-monitoring_victoria_metrics_url: "http://192.168.1.110:8428"
+monitoring_victoria_metrics_url: "http://192.168.1.50:8428"
 monitoring_victoria_metrics_version: "v1.110.0"
 monitoring_victoria_metrics_port: "8428"
 

@@ -1,19 +1,23 @@
 ---
-- name: Инициализация домашней директории docker пользователя devops
+- name: Инициализация домашней директории docker, назначения прав и владельца
   become: true
   block:
-    - name: Создание пользователя
+    - name: "Создание группы {{ docker_files_group_owner }}"
+      ansible.builtin.group:
+        name: "{{ docker_files_group_owner }}"
+        state: present
+
+    - name: Добавление пользователя в группы docker
       ansible.builtin.user:
-        name: devops
-        groups: docker
-        password: "{{ docker_devops_password }}"
-        create_home: true
-        shell: /bin/bash
+        name: "{{ docker_files_owner }}"
+        groups: "{{ docker_files_group_owner }}, docker"
+        append: true
+        state: present
 
     - name: "Создание директории {{ docker_working_directory_path }}"
       ansible.builtin.file:
         path: "{{ docker_working_directory_path }}"
-        owner: devops
-        group: devops
+        owner: "{{ docker_files_owner }}"
+        group: "{{ docker_files_group_owner }}"
         state: directory
         mode: '0755'

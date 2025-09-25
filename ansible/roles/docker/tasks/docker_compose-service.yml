@@ -21,4 +21,5 @@
     - name: Запуск сервиса с помощью docker-compose
       community.docker.docker_compose_v2:
         project_src: "{{ docker_docker_working_directory_path }}/{{ docker_environment }}/{{ docker_service }}"
+        services: []
         state: present

@@ -14,7 +14,7 @@ PUBLIC_KEY=$4        # Публичный SSH ключ для ansible
 # Команды для выполнения на удаленном сервере с sudo
 SSH_COMMAND="sudo bash -c ' \
     apt update && \
-    apt install ansible -y && \
+    apt install ansible --force-yes && \
     useradd -m -s /bin/bash ansible && \
     echo \"ansible:$PASSWORD\" | chpasswd && \
     mkdir -p /home/ansible/.ssh && \

@@ -1,27 +1,76 @@
+networks:
+  monitoring:
+    driver: bridge
+
 services:
-  node_exporter:
-    image: prom/node-exporter:v1.8.2
-    container_name: node_exporter
-    command:
-      - '--path.rootfs=/host'
-    network_mode: host
-    pid: host
-    restart: unless-stopped
+  uptime_kuma:
+    image: elestio/uptime-kuma:2.0.0-beta.2
+    container_name: uptime_kuma
+    #ports:
+    #  - "3005:3001"
     volumes:
-      - '/:/host:ro,rslave'
+      - ./uptime_kuma:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - monitoring
+    restart: unless-stopped
+
+  alloy:
+    image: grafana/alloy:v1.10.0
+    container_name: alloy
+    #ports:
+    #  - "127.0.0.1:12345:12345"
+    volumes:
+      - ./config.alloy:/etc/alloy/config.alloy
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: run --server.http.listen-addr=0.0.0.0:12345 --storage.path=/var/lib/alloy/data /etc/alloy/config.alloy
+    restart: unless-stopped
+
+  node_exporter:
+    image: prom/node-exporter:v1.9.1
+    container_name: node_exporter
+    security_opt:
+      - no-new-privileges
+    #cap_add:
+    #  - SYS_PTRACE  # Для отладки процессов
+    #  - NET_RAW      # Для сетевых операций (если нужно)
+    #  - SYS_ADMIN
+    volumes:
+      - '/proc:/host/proc:ro'
+      - '/sys:/host/sys:ro'
+      - '/:/rootfs:ro'  # Только для чтения для метрик, но не для записи
+    ports:
+      - 192.168.0.235:9100:9100
+    networks:
+      - monitoring
+    command:
+      # Используем конфигурацию из документации node_exporter для сбора стандартных метрик
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      # Только стандартные опции сбора метрик
+      - '--log.level=error'
+    restart: unless-stopped
 
   cadvisor:
-    image: gcr.io/cadvisor/cadvisor:v0.49.2
+    image: ghcr.io/google/cadvisor:v0.53.0
     container_name: cadvisor
-    privileged: true
-    devices:
-      - /dev/kmsg
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges
+      - apparmor=label=@cadvisor
+    command:
+      - "--housekeeping_interval=30s"
+      #- "--docker_only=true"
+      - "--store_container_labels=false"
     volumes:
-      - /:/rootfs:ro
-      - /var/run:/var/run:ro
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
-      - /dev/disk/:/dev/disk:ro
+      - '/:/rootfs:ro'  # Критически для центрального мониторинга
+      - '/var/run:/var/run:ro'
+      - '/sys:/sys:ro'
     ports:
-      - "127.0.0.1:6000:8080"
-    restart: always
+      - "127.0.0.1:6010:8080"
+    networks:
+      - monitoring
+    environment:
+      - CADVISOR_NO_CGROUPS=true  # Отключает небезопасные cgroup опции
+    cap_add:
+      - SYS_ADMIN  # Минимально необходимная привилегия
